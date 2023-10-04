@@ -55,6 +55,9 @@ int main(int argc, char* argv[])
 
     clearerr(target);
 
+    // 512バイトずつファイルを読み込み、ハッシュを計算する
+    // ファイルの終端部のみ読み込みバイト数が512バイト未満になる可能性がある
+    // バッファを上書きしながら少しずつファイルを読み込むことで、巨大なファイルのハッシュを計算する場合にメモリが枯渇するのを回避している
     while(feof(target) == 0)
     {
         target_size = fread(buffer, 1, 512, target);
